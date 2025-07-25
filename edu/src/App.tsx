@@ -1,9 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import Footer from "./components/Footer";
-
 import { UserProvider } from "./context/UserContex";
 
 // Pages
@@ -13,31 +9,35 @@ import LevelPage from "./pages/LevelPage";
 import LandingCourse from "./pages/LandingCourse";
 import Login from "./pages/Login";
 
+// Layout
+import Layout from "./components/Layout";
+
 const App: React.FC = () => {
   return (
     <UserProvider>
       <Router>
-        <div className="flex">
-          <Sidebar />
-          <div className="flex-1 flex flex-col min-h-screen">
-            <Navbar />
+        <Routes>
+          {/* Login page without layout */}
+          <Route path="/login" element={<Login />} />
 
-            <main className="flex-1 bg-gray-50 p-6">
-              <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/courses" element={<Courses />} />
-                <Route path="/levels/:coursePath" element={<LevelPage />} />
-                <Route
-                  path="/course/:coursePath/level/:levelId"
-                  element={<LandingCourse />}
-                />
-              </Routes>
-            </main>
-
-            <Footer />
-          </div>
-        </div>
+          {/* All other pages with layout */}
+          <Route
+            path="*"
+            element={
+              <Layout>
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/courses" element={<Courses />} />
+                  <Route path="/levels/:coursePath" element={<LevelPage />} />
+                  <Route
+                    path="/course/:coursePath/level/:levelId"
+                    element={<LandingCourse />}
+                  />
+                </Routes>
+              </Layout>
+            }
+          />
+        </Routes>
       </Router>
     </UserProvider>
   );
