@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { HomeOutlined, BookOutlined, BellOutlined, UserOutlined, MenuOutlined } from "@ant-design/icons";
+import { HomeOutlined, BookOutlined, UserOutlined, MenuOutlined } from "@ant-design/icons";
 import { useUser } from "../context/UserContex"; // <--- foydalanuvchi context
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
